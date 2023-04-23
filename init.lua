@@ -20,7 +20,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 
 -- List of plugins to be installed
-plugins = {
+local plugins = {
 
 	-- Treesitter provides basic functionalities such as highlighting
 	{
@@ -31,8 +31,7 @@ plugins = {
 	-- Telescope is a powerful fuzzy finder
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = '0.1.1',
-		branch = '0.1.1',
+		branch = "0.1.x",
 		dependencies = { 'nvim-lua/plenary.nvim' },
 	},
 
@@ -120,3 +119,9 @@ lspconfig.lua_ls.setup({ settings = { Lua = { } } })
 
 -- Python LSP configurations
 lspconfig.pylsp.setup({ setting = { pylsp = { } } })
+
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
