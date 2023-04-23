@@ -57,10 +57,7 @@ plugins = {
 		-- Nvim completion engine
 		"hrsh7th/nvim-cmp",
 		dependencies = {
-			{
-				"L3MON4D3/LuaSnip",
-				version = "1.*",
-			},
+			-- Critical for nvim completion functionalities
 			"hrsh7th/cmp-nvim-lsp",
 		}
 	}
@@ -89,11 +86,6 @@ require("nvim-treesitter.configs").setup(
 local cmp = require("cmp")
 
 cmp.setup({
-	snippet = {
-		expand = function(args)
-			require("luasnip").lsp_expand(args.body)
-		end,
-	},
 	window = {
 		documentation = cmp.config.window.bordered(),
 	},
@@ -105,8 +97,8 @@ cmp.setup({
 		['<CR>'] = cmp.mapping.confirm({select = true}),
 	}),
 	sources = cmp.config.sources({
+		-- Critical for nvim completion functionalities
 		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
 	})
 })
 
