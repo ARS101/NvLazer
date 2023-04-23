@@ -15,26 +15,53 @@ vim.g.mapleader = " "
 
 plugins = {
 	{
-		"https://github.com/nvim-telescope/telescope.nvim",
+		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate"
+	},
+
+	{
+		"nvim-telescope/telescope.nvim",
 		tag = '0.1.1',
 		branch = '0.1.1',
 		dependencies = { 'nvim-lua/plenary.nvim' },
 	},
-	{"https://github.com/navarasu/onedark.nvim"},
+
+	{"navarasu/onedark.nvim"},
+
+	{
+		"williamboman/mason-lspconfig.nvim",
+		dependencies = {
+			"neovim/nvim-lspconfig",
+			"williamboman/mason.nvim",
+		}
+	}
 }
 
 
 require("lazy").setup(plugins)
 
-require('onedark').setup {
+require("onedark").setup {
     style = 'darker',
-    code_style = {
-        comments = 'italic',
-        keywords = 'none',
-        functions = 'none',
-        strings = 'none',
-        variables = 'none'
-    },
 }
 
-require('onedark').load()
+require("onedark").load()
+
+require("nvim-treesitter.configs").setup(
+	{
+		ensure_installed = { "lua", "python" },
+		auto_install = true,
+		highlight = { enable = true },
+	}
+)
+
+require("mason").setup()
+require("mason-lspconfig").setup(
+	{
+		automatic_installation = true,
+		ensure_installed = { "lua_ls", "pylsp" },
+	}
+)
+
+local lspconfig = require("lspconfig")
+lspconfig.lua_ls.setup({ settings = { Lua = { } } })
+lspconfig.pylsp.setup({ setting = { pylsp = { } } })
