@@ -73,6 +73,7 @@ cmp.setup({
 		end,
 	},
 	window = {
+		documentation = cmp.config.window.bordered(),
 	},
 	mapping = cmp.mapping.preset.insert({
 		['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -84,7 +85,7 @@ cmp.setup({
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
-	}, { { name = "buffer" }, })
+	})
 })
 
 require("mason").setup()
@@ -98,5 +99,3 @@ require("mason-lspconfig").setup(
 local lspconfig = require("lspconfig")
 lspconfig.lua_ls.setup({ settings = { Lua = { } } })
 lspconfig.pylsp.setup({ setting = { pylsp = { } } })
-
-
