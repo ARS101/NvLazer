@@ -52,6 +52,7 @@ local plugins = {
 			"williamboman/mason.nvim",
 		}
 	},
+
 	{
 		-- Nvim completion engine
 		"hrsh7th/nvim-cmp",
@@ -59,7 +60,14 @@ local plugins = {
 			-- Critical for nvim completion functionalities
 			"hrsh7th/cmp-nvim-lsp",
 		}
-	}
+	},
+
+	{ "folke/neodev.nvim" },
+
+	{
+		"nvim-lualine/lualine.nvim",
+		opts = { "nvim-tree/nvim-web-devicons" },
+	},
 }
 
 
@@ -112,10 +120,12 @@ require("mason-lspconfig").setup(
 	}
 )
 
+require("neodev").setup({})
+
 local lspconfig = require("lspconfig")
 
 -- Lua LSP configurations
-lspconfig.lua_ls.setup({ settings = { Lua = { } } })
+lspconfig.lua_ls.setup({ settings = { Lua = { completion = { callSnippet = "Replace" } } } })
 
 -- Python LSP configurations
 lspconfig.pylsp.setup({ setting = { pylsp = { } } })
@@ -125,3 +135,5 @@ vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+
+require('lualine').setup()
