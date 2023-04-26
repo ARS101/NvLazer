@@ -1,6 +1,10 @@
 # NvLazer
 My personal nvim config (NOT COMPLETE)\
-Supports Python, Lua (+ Neovim API)
+Supports Python, Lua (+ Neovim API)\
+\
+If you want a more beginner config with batteries included.\
+Check out NvPak: https://github.com/Pakrohk-DotFiles/NvPak \
+Which is also maintained by my friends and me.
 
 # Installation guide
 
