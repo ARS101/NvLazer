@@ -170,7 +170,7 @@ require("mason-lspconfig").setup(
         automatic_installation = true,
         -- LSPs to install
         -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
-        ensure_installed = { "lua_ls", "pylsp" },
+        ensure_installed = { "lua_ls", "pylsp", "tsserver", "html", "cssls" },
     }
 )
 
@@ -201,6 +201,22 @@ lspconfig.pylsp.setup({
             }
         }
     }
+})
+
+-- Typescript / Javascript LSP configurations
+lspconfig.tsserver.setup({})
+
+-- Enable (broadcasting of) snippet capability for completion
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+-- HTML LSP configurations
+lspconfig.html.setup({
+    capabilities = capabilities,
+})
+
+lspconfig.cssls.setup({
+    capabilities = capabilities,
 })
 
 vim.lsp.set_log_level("debug")
