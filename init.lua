@@ -73,6 +73,20 @@ local plugins = {
     },
 
     {
+        -- Bridges mason.nvim with the null-ls plugin
+        -- making it easier to use both plugins together
+        "jay-babu/mason-null-ls.nvim",
+        dependencies = {
+            -- Inject LSP diagnostics, code actions, and more inside Neovim
+            "jose-elias-alvarez/null-ls.nvim",
+
+            -- Package manager used to install
+            -- LSP servers, DAP servers, linters, and formatters
+            "williamboman/mason.nvim",
+        },
+    },
+
+    {
         -- Nvim completion engine
         "hrsh7th/nvim-cmp",
         dependencies = {
@@ -83,7 +97,7 @@ local plugins = {
         }
     },
 
-    -- Signature help, docs and completion for the neovim lua API. 
+    -- Signature help, docs and completion for the neovim lua API.
     { "folke/neodev.nvim" },
 
     -- A blazing fast and easy to configure neovim statusline plugin
@@ -120,7 +134,8 @@ local plugins = {
     },
 
     -- Autoclose and autorename html tag using nvim-treesitter
-    { "windwp/nvim-ts-autotag",
+    {
+        "windwp/nvim-ts-autotag",
         dependencies = { "nvim-treesitter/nvim-treesitter", },
     }
 }
@@ -224,6 +239,19 @@ lspconfig.html.setup({
 lspconfig.cssls.setup({
     capabilities = capabilities,
 })
+
+local null_ls = require("null-ls")
+local mason_null_ls = require("mason-null-ls")
+
+mason_null_ls.setup({
+    -- Linters and formatters to install
+    -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
+    ensure_installed = { "stylua" },
+    automatic_installation = true,
+    handlers = {}, -- sets up null-ls (Required)
+})
+
+null_ls.setup({ sources = {} })
 
 require('nvim-ts-autotag').setup()
 
