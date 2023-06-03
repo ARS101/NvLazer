@@ -58,8 +58,8 @@ local plugins = {
     { "navarasu/onedark.nvim" },
 
     {
-        -- Bridges mason.nvim with the lspconfig plugins
-        -- making it easier to use both plugins together.
+        -- Bridges mason.nvim with the lspconfig plugin
+        -- making it easier to use both plugins together
         "williamboman/mason-lspconfig.nvim",
         dependencies = {
             -- Configurations for the Nvim LSP client
@@ -67,7 +67,21 @@ local plugins = {
             "neovim/nvim-lspconfig",
 
             -- Package manager used to install
-            -- LSP servers, DAP servers, linters, and formatters.
+            -- LSP servers, DAP servers, linters, and formatters
+            "williamboman/mason.nvim",
+        }
+    },
+
+    {
+        -- Bridges mason.nvim with the nvim-dap plugin
+        -- making it easier to use both plugins together
+        "jay-babu/mason-nvim-dap.nvim",
+        dependencies = {
+            -- Debug Adapter Protocol client implementation for Neovim
+            "mfussenegger/nvim-dap",
+
+            -- Package manager used to install
+            -- LSP servers, DAP servers, linters, and formatters
             "williamboman/mason.nvim",
         }
     },
@@ -83,7 +97,7 @@ local plugins = {
         }
     },
 
-    -- Signature help, docs and completion for the neovim lua API. 
+    -- Signature help, docs and completion for the neovim lua API
     { "folke/neodev.nvim" },
 
     -- A blazing fast and easy to configure neovim statusline plugin
@@ -218,6 +232,17 @@ lspconfig.html.setup({
 lspconfig.cssls.setup({
     capabilities = capabilities,
 })
+
+local mason_nvim_dap = require("mason-nvim-dap")
+
+mason_nvim_dap.setup({
+    -- DAPs to install
+    -- https://github.com/jay-babu/mason-nvim-dap.nvim/blob/main/lua/mason-nvim-dap/mappings/source.lua
+    ensure_installed = { 'python' },
+
+    -- sets up dap in the predefined manner
+    handlers = {},})
+
 
 vim.lsp.set_log_level("debug")
 
