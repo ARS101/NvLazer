@@ -118,6 +118,11 @@ local plugins = {
         init = function() vim.g.barbar_auto_setup = false end,
         version = '^1.0.0',
     },
+
+    -- Autoclose and autorename html tag using nvim-treesitter
+    { "windwp/nvim-ts-autotag",
+        dependencies = { "nvim-treesitter/nvim-treesitter", },
+    }
 }
 
 
@@ -215,11 +220,12 @@ lspconfig.html.setup({
     capabilities = capabilities,
 })
 
+-- CSS LSP configurations
 lspconfig.cssls.setup({
     capabilities = capabilities,
 })
 
-vim.lsp.set_log_level("debug")
+require('nvim-ts-autotag').setup()
 
 -- Telescope keybindings
 local builtin = require('telescope.builtin')
