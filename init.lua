@@ -83,7 +83,7 @@ local plugins = {
         }
     },
 
-    -- Signature help, docs and completion for the neovim lua API. 
+    -- Signature help, docs and completion for the neovim lua API.
     { "folke/neodev.nvim" },
 
     -- A blazing fast and easy to configure neovim statusline plugin
@@ -120,7 +120,8 @@ local plugins = {
     },
 
     -- Autoclose and autorename html tag using nvim-treesitter
-    { "windwp/nvim-ts-autotag",
+    {
+        "windwp/nvim-ts-autotag",
         dependencies = { "nvim-treesitter/nvim-treesitter", },
     }
 }
@@ -179,7 +180,7 @@ require("mason-lspconfig").setup(
     }
 )
 
-require("neodev").setup({})
+-- require("neodev").setup({})
 
 local lspconfig = require("lspconfig")
 
@@ -189,7 +190,21 @@ lspconfig.lua_ls.setup({
         Lua = {
             -- Fix the annoyance of:
             -- Do you need to configure your work environment as `luv`?
-            workspace = { checkThirdParty = false }
+            workspace = {
+                checkThirdParty = false,
+                library = {
+                    "~/.luarocks/share/lua/5.4/",
+                    "~/.luarocks/lib/lua/5.4/",
+                    "/usr/share/nvim/runtime/lua/",
+                    "/usr/share/awesome/lib/",
+                    "~/.local/share/nvim/lazy",
+                }
+            },
+            diagnostics = {
+                globals = {
+                    "awesome", "client", "screen", "root"
+                }
+            }
         }
     }
 })
